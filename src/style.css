@@ -9,6 +9,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: teal;
+  font-family: 'Karla', sans-serif;
 }
 
 code {
@@ -22,8 +23,10 @@ code {
   border-radius: 10px;
   background-color: white;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
+
 }
 
 .dice-container {
@@ -44,7 +47,39 @@ code {
     background-color: whitesmoke;
 }
 
+.die-face-green {
+    height: 50px;
+    width: 50px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #59E391;
+}
+
 .die-num {
     font-size: 2rem;
 }
 
+
+.roll-dice {
+    height: 50px;
+    width: 100px;
+    border: none;
+    border-radius: 6px;
+    background-color: #5035FF;
+    color: white;
+    font-size: 1.2rem;
+    font-family: 'Karla', sans-serif;
+    cursor: pointer;
+}
+
+.roll-dice:focus {
+    outline: none;
+}
+
+.roll-dice:active {
+    box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}

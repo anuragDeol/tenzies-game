@@ -31,7 +31,6 @@ export default function App() {
     function allNewDice() {
         const newDice = []
         for (let i = 0; i < 10; i++) {
-            const value = Math.ceil(Math.random() * 6)
             newDice.push(generateNewDie())
         }
         return newDice

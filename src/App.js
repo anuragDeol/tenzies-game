@@ -15,7 +15,7 @@ export default function App() {
     const allValueEqual = dice.every((die) => die.value === firstDieValue)
     if(allDiceHeld && allValueEqual) {
         setTenzies(true)
-        console.log('You won!')
+        // console.log('You won!')
     }
   }, [dice])
 
@@ -37,11 +37,11 @@ export default function App() {
     }
 
     function updateDice(prevState) {
-    // console.log(prevState)
-    const newState = prevState.map((die) => {
-        return die.isHeld ? die : generateNewDie()
-    })
-    return newState
+        // console.log(prevState)
+        const newState = prevState.map((die) => {
+            return die.isHeld ? die : generateNewDie()
+        })
+        return newState
     }
   
     function rollDice() {
@@ -56,7 +56,7 @@ export default function App() {
     function handleClickOnDie(clickedDieId) {
         // console.log(clickedDieId)
         setDice((prevState) => {
-            const newState = prevState.map(die => {
+            const newState = prevState.map((die) => {
                 return die.id === clickedDieId ? {...die, isHeld: !die.isHeld} : die
             })
             return newState
@@ -78,8 +78,8 @@ export default function App() {
         <main className="main-container">
             {tenzies && <Confetti/>}
             <div className="title-container">
-                <h1 className="title">Tenzies</h1>
-                <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+                <h1 className="title"><i class="fa-solid fa-dice"></i> Tenzies</h1>
+                <p className="instructions"><i class="fa-sharp fa-solid fa-circle-info"></i> Click on any dice you want to keep unchanged and roll the remaining ones again. <br />Keep doing this until you match all ten dice to the same number.</p>
             </div>
             <div className="dice-container">
                 {dieElements}

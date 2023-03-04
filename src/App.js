@@ -1,15 +1,20 @@
 import React from "react"
 import Die from "./components/Die"
+import ScoreBoard from "./components/ScoreBoard"
 import "./style.css"
 import {nanoid} from "nanoid"
 import Confetti from "react-confetti"
 
 export default function App() {
 
-  const [dice, setDice] = React.useState(allNewDice())
-  const [tenzies, setTenzies] = React.useState(false)
+    const [dice, setDice] = React.useState(allNewDice())
+    const [tenzies, setTenzies] = React.useState(false)
+    const [rolls, setRolls] = React.useState(0)
+    const [timer, setTimer] = React.useState(0)
 
-  React.useEffect(() => {
+
+    // check if the game is over or not
+    React.useEffect(() => {
     const allDiceHeld = dice.every((die) => die.isHeld)
     const firstDieValue = dice[0].value
     const allValueEqual = dice.every((die) => die.value === firstDieValue)
@@ -17,7 +22,18 @@ export default function App() {
         setTenzies(true)
         // console.log('You won!')
     }
-  }, [dice])
+    }, [dice])
+
+    React.useEffect(() => {
+        let intervalId
+        if(timer>0 && tenzies===false) {
+            intervalId = setInterval(() => {
+                setTimer((prevTimer) => prevTimer + 1)
+            }, 1000)
+        }
+        // return cleanup function that'll be called before the component unmounts or before the effect is run again
+        return () => clearInterval(intervalId)
+    }, [timer, tenzies])
 
 
     function generateNewDie() {
@@ -27,7 +43,7 @@ export default function App() {
             id: nanoid()
         }
     }
-    
+
     function allNewDice() {
         const newDice = []
         for (let i = 0; i < 10; i++) {
@@ -43,18 +59,25 @@ export default function App() {
         })
         return newState
     }
-  
+
     function rollDice() {
-        if(!tenzies)
+        if(!tenzies){
             setDice((prevState) => updateDice(prevState))
+            setRolls((prevState) => prevState+1)
+        }
         else {
             setTenzies(false)
             setDice(allNewDice())
-        } 
+            setRolls(0)
+            setTimer(0)
+        }
     }
 
     function handleClickOnDie(clickedDieId) {
         // console.log(clickedDieId)
+        if(timer === 0) {
+            setTimer(1)
+        }
         setDice((prevState) => {
             const newState = prevState.map((die) => {
                 return die.id === clickedDieId ? {...die, isHeld: !die.isHeld} : die
@@ -73,13 +96,19 @@ export default function App() {
         )
     })
 
-  
+
     return (
         <main className="main-container">
             {tenzies && <Confetti/>}
             <div className="title-container">
                 <h1 className="title"><i class="fa-solid fa-dice"></i> Tenzies</h1>
                 <p className="instructions"><i class="fa-sharp fa-solid fa-circle-info"></i> Click on any dice you want to keep unchanged and roll the remaining ones again. <br />Keep doing this until you match all ten dice to the same number.</p>
+            </div>
+            <div className="scoreboard-container">
+                <ScoreBoard 
+                    rolls={rolls}
+                    timer={timer}
+                />
             </div>
             <div className="dice-container">
                 {dieElements}
@@ -91,5 +120,5 @@ export default function App() {
                 {tenzies ? "New Game" : "Roll"}
             </button>
         </main>
-  )
+    )
 }

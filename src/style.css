@@ -49,6 +49,13 @@ code {
     text-align: center;
 }
 
+.score-board {
+  width: 200px;
+  margin: 0;
+  margin-left: 30%;
+  /* border: 2px solid black; */
+}
+
 .dice-container {
     display: grid;
     grid-template: auto auto / repeat(5, 1fr);

@@ -8,7 +8,6 @@ import { NotificationManager, NotificationContainer } from 'react-notifications'
 import 'react-notifications/lib/notifications.css';
 
 export default function App() {
-
     const [dice, setDice] = React.useState(allNewDice())
     const [tenzies, setTenzies] = React.useState(false)
     const [rolls, setRolls] = React.useState(0)

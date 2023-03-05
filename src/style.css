@@ -13,11 +13,6 @@ body {
   overflow: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
 .main-container {
   height: 90vh;
   width: 70vw;

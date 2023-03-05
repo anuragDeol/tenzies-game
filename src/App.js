@@ -11,6 +11,9 @@ export default function App() {
     const [tenzies, setTenzies] = React.useState(false)
     const [rolls, setRolls] = React.useState(0)
     const [timer, setTimer] = React.useState(0)
+    const [bestScore, setBestScore] = React.useState(() => {
+        return JSON.parse(localStorage.getItem("bestScore")) || Number.MAX_VALUE
+    })
 
 
     // check if the game is over or not
@@ -19,8 +22,11 @@ export default function App() {
     const firstDieValue = dice[0].value
     const allValueEqual = dice.every((die) => die.value === firstDieValue)
     if(allDiceHeld && allValueEqual) {
-        setTenzies(true)
         // console.log('You won!')
+        setTenzies(true)
+        if(timer<bestScore) {
+            setBestScore(timer)
+        }
     }
     }, [dice])
 
@@ -31,9 +37,15 @@ export default function App() {
                 setTimer((prevTimer) => prevTimer + 1)
             }, 1000)
         }
-        // return cleanup function that'll be called before the component unmounts or before the effect is run again
+        // return cleanup function that'll be called before the component unmounts or before the effect is run again..
+        // ..preventing multiple intervals from running simultaneously
         return () => clearInterval(intervalId)
     }, [timer, tenzies])
+
+    React.useEffect(() => {
+        // 'bestScore' will only be stored in localStorage, the state 'bestScore' is updated
+        localStorage.setItem("bestScore", JSON.stringify(bestScore))
+    }, [bestScore])
 
 
     function generateNewDie() {
@@ -62,6 +74,9 @@ export default function App() {
 
     function rollDice() {
         if(!tenzies){
+            if(timer == 0) {
+                setTimer(1)
+            }
             setDice((prevState) => updateDice(prevState))
             setRolls((prevState) => prevState+1)
         }
@@ -108,6 +123,7 @@ export default function App() {
                 <ScoreBoard 
                     rolls={rolls}
                     timer={timer}
+                    bestScore={bestScore}
                 />
             </div>
             <div className="dice-container">

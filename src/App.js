@@ -25,9 +25,6 @@ export default function App() {
     if(allDiceHeld && allValueEqual) {
         // console.log('You won!')
         setTenzies(true)
-        if(timer<bestScore) {
-            setBestScore(timer)
-        }
     }
     }, [dice])
 
@@ -37,6 +34,9 @@ export default function App() {
             intervalId = setInterval(() => {
                 setTimer((prevTimer) => prevTimer + 1)
             }, 1000)
+        }
+        if(tenzies && timer<bestScore) {
+            setBestScore(timer)
         }
         // return cleanup function that'll be called before the component unmounts or before the effect is run again..
         // ..preventing multiple intervals from running simultaneously
@@ -75,7 +75,7 @@ export default function App() {
 
     function rollDice() {
         if(!tenzies){
-            if(timer == 0) {
+            if(timer === 0) {
                 setTimer(1)
             }
             setDice((prevState) => updateDice(prevState))

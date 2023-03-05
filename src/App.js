@@ -41,7 +41,7 @@ export default function App() {
         // return cleanup function that'll be called before the component unmounts or before the effect is run again..
         // ..preventing multiple intervals from running simultaneously
         return () => clearInterval(intervalId)
-    }, [timer, tenzies])
+    }, [timer, tenzies, bestScore])
 
     React.useEffect(() => {
         // 'bestScore' will only be stored in localStorage, the state 'bestScore' is updated

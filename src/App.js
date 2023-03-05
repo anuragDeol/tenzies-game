@@ -4,6 +4,8 @@ import ScoreBoard from "./components/ScoreBoard"
 import "./style.css"
 import {nanoid} from "nanoid"
 import Confetti from "react-confetti"
+import { NotificationManager, NotificationContainer } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 export default function App() {
 
@@ -111,9 +113,9 @@ export default function App() {
         )
     })
 
-
     return (
         <main className="main-container">
+            {tenzies && bestScore<JSON.parse(localStorage.bestScore) && NotificationManager.success('Woah woah woah!! Someone\'s got a new score to beat', 'New Best Score!', 7000)}
             {tenzies && <Confetti/>}
             <div className="title-container">
                 <h1 className="title"><i class="fa-solid fa-dice"></i> Tenzies</h1>
@@ -135,6 +137,7 @@ export default function App() {
             >
                 {tenzies ? "New Game" : "Roll"}
             </button>
+            <NotificationContainer />
         </main>
     )
 }

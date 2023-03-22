@@ -1,6 +1,5 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tenzies Dice Game
+Live Link: https://stunning-biscotti-497ca9.netlify.app/
 
 ## Available Scripts
 
